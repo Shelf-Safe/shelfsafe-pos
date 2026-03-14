@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShelfSafe POS Simulator</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div id="app">
+    <section id="loginView" class="login-screen">
+      <div class="login-card">
+        <div>
+          <p class="eyebrow">Demo POS Integration</p>
+          <h1>ShelfSafe POS Simulator</h1>
+          <p class="muted">First bootstrap exposes full seed-like collections. Later syncs expose only changed entities for performance.</p>
+        </div>
+        <div class="demo-box">
+          <div><strong>Username:</strong> sam</div>
+          <div><strong>Password:</strong> password123</div>
+          <div><strong>Auto-change frequency:</strong> every 15 seconds</div>
+        </div>
+        <form id="loginForm" class="login-form">
+          <label>Username<input id="username" value="sam" autocomplete="username" /></label>
+          <label>Password<input id="password" type="password" value="password123" autocomplete="current-password" /></label>
+          <button type="submit">Login</button>
+          <p id="loginError" class="error"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="dashboardView" class="hidden dashboard">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Authenticated POS View</p>
+          <h2>ShelfSafe POS Simulator Dashboard</h2>
+          <p class="muted">Rows flash on stock changes. Collection counts reflect the bootstrap payload ShelfSafe can import.</p>
+        </div>
+        <div class="topbar-actions">
+          <div class="user-pill">Sam POS Manager</div>
+          <button id="forceChangeBtn" class="secondary">Force Change</button>
+          <button id="logoutBtn" class="ghost">Logout</button>
+        </div>
+      </header>
+
+      <section class="stats-grid">
+        <article class="stat-card"><span>Total SKUs</span><strong id="totalItems">0</strong></article>
+        <article class="stat-card"><span>Total Units</span><strong id="totalUnits">0</strong></article>
+        <article class="stat-card"><span>Pending Entity Changes</span><strong id="pendingEntityChanges">0</strong></article>
+        <article class="stat-card"><span>Last Auto Update</span><strong id="lastCycleAt">-</strong></article>
+      </section>
+
+      <section class="panel config-panel">
+        <div class="panel-header">
+          <div>
+            <h3>Simulator Inventory Size</h3>
+            <p class="muted">Change the total item count while keeping the same status and priority split logic.</p>
+          </div>
+        </div>
+        <div class="config-row">
+          <label class="config-field">
+            <span>Total items</span>
+            <input id="itemCountInput" type="number" min="25" max="1000" step="1" value="250" />
+          </label>
+          <button id="applyConfigBtn" class="secondary">Apply Item Count</button>
+          <div id="configMessage" class="muted config-message"></div>
+        </div>
+      </section>
+
+      <section class="mini-grid">
+        <div class="panel mini-panel">
+          <div class="panel-header"><h3>Bootstrap Collection Counts</h3></div>
+          <div id="collectionCounts" class="counts-grid"></div>
+        </div>
+        <div class="panel mini-panel">
+          <div class="panel-header"><h3>Sync API Notes</h3></div>
+          <div class="api-list">
+            <code>GET /api/bootstrap/full-dataset</code>
+            <code>GET /api/sync/changes?cursor=0</code>
+            <code>GET /api/inventory</code>
+            <code>GET /api/inventory/changes?cursor=0</code>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel inventory-panel">
+          <div class="panel-header">
+            <div>
+              <h3>Live Inventory</h3>
+              <p class="muted">Rows flash green or red when stock changes.</p>
+            </div>
+            <input id="searchInput" placeholder="Search medication, SKU, barcode" />
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Medication</th>
+                  <th>SKU</th>
+                  <th>Lot</th>
+                  <th>Category</th>
+                  <th>Stock</th>
+                  <th>Status</th>
+                  <th>Image</th>
+                  <th>Updated</th>
+                </tr>
+              </thead>
+              <tbody id="inventoryBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="panel side-panel">
+          <div class="panel-header"><div><h3>Live Activity Feed</h3><p class="muted">Newest POS changes appear here first.</p></div></div>
+          <div id="activityFeed" class="activity-feed"></div>
+        </aside>
+      </section>
+    </section>
+  </div>
+  <script src="/app.js"></script>
+</body>
+</html>
