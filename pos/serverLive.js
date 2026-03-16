@@ -6,7 +6,7 @@ const { createSimulator } = require('./src/simulator');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'pos-simulator-demo-secret';
 const SIMULATION_INTERVAL_MS = Number(process.env.SIMULATION_INTERVAL_MS || 15000);
-const CLIENT_URL = process.env.CLIENT_URL || 'https://shelf-safe-frontend.vercel.app';
+const CLIENT_URL = process.env.CLIENT_URL || 'https://shelf-safe-frontend.vercel.app' || 'https://shelfsafe-test-frontend.vercel.app/';
 
 const app = express();
 const simulator = createSimulator({
