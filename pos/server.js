@@ -73,7 +73,7 @@ app.post('/api/simulator/config', authRequired, (req, res) => {
 });
 
 app.get('/api/inventory', authRequired, (req, res) => {
-  const limit = Math.max(1, Math.min(1000, Number(req.query.limit || 250)));
+  const limit = Math.max(1, Math.min(1000, Number(req.query.limit || 65)));
   const items = simulator.getInventory().slice(0, limit);
   res.json({
     success: true,

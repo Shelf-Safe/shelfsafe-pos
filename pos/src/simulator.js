@@ -215,7 +215,7 @@ function buildReports(records, organizationId, runId) {
     { _id: `${organizationId}_supplier_summary`, orgId: organizationId, type: 'supplierSummary', title: 'Supplier Summary', generatedAt: new Date().toISOString(), metrics: summary.suppliers, seedMeta: createSeedMeta(runId, 'report', { reportType: 'supplierSummary' }) }
   ];
 }
-function generateRecords({ count = 250 } = {}) {
+function generateRecords({ count = 65 } = {}) {
   const runId = `seed_${Date.now()}`;
   const organizationId = 'dummy01';
   const safeCount = Math.max(1, Number(count || 1));
@@ -340,8 +340,8 @@ function generateRecords({ count = 250 } = {}) {
   };
 }
 
-function createSimulator({ intervalMs = 15000, initialItemCount = 250, illusionMode = false, maxCatchUpCycles = 6 } = {}) {
-  let configuredItemCount = clamp(Number(initialItemCount) || 250, 25, 1000);
+function createSimulator({ intervalMs = 15000, initialItemCount = 65, illusionMode = false, maxCatchUpCycles = 6 } = {}) {
+  let configuredItemCount = clamp(Number(initialItemCount) || 65, 25, 1000);
   let seed = generateRecords({ count: configuredItemCount });
   let collections = seed.collections;
   let inventory = seed.inventory;

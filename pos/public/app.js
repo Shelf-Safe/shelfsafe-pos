@@ -5,7 +5,7 @@ const state = {
   cursor: 0,
   pollHandle: null,
   search: '',
-  itemCount: 250
+  itemCount: 65
 };
 
 const els = {
